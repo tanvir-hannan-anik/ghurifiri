@@ -1,555 +1,490 @@
-// Demo content. All reservations stay in this browser; no payments are collected.
-const trips = [
-  {
-    "id": "coxs-bazar",
-    "name": "Cox's Bazar Beach Escape",
-    "country": "Cox's Bazar",
-    "region": "Chattogram",
-    "days": 3,
-    "nights": 2,
-    "price": 8500,
-    "rating": 4.8,
-    "image": "assets/coxs-bazar.jpg",
-    "description": "Enjoy sea breezes, beach walks, and coastal scenery on a relaxed Bangladesh getaway.",
-    "stops": [
-      "Arrive from Dhaka & beach sunset",
-      "Himchari and Inani coastal excursion",
-      "Free morning & return to Dhaka"
-    ]
-  },
-  {
-    "id": "sajek",
-    "name": "Sajek Valley Cloud Retreat",
-    "country": "Sajek Valley",
-    "region": "Chattogram",
-    "days": 3,
-    "nights": 2,
-    "price": 7500,
-    "rating": 4.9,
-    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Sajek_Valley%2C_Bangladesh.jpg",
-    "description": "Wake up above green hills and drifting clouds, with time to enjoy the peaceful scenery of Sajek.",
-    "stops": [
-      "Dhaka to Khagrachhari & transfer to Sajek",
-      "Sunrise views & Konglak hill walk",
-      "Breakfast & return journey"
-    ]
-  },
-  {
-    "id": "sundarbans",
-    "name": "Sundarbans River Adventure",
-    "country": "Sundarbans",
-    "region": "Khulna",
-    "days": 3,
-    "nights": 2,
-    "price": 12500,
-    "rating": 4.8,
-    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Entry_of_Sundarban_Forest_%2CBangladesh.jpg",
-    "description": "Explore the Bangladesh mangroves on a guided boat journey from Mongla, with forest scenery and quiet waterways.",
-    "stops": [
-      "Meet in Mongla & board the boat",
-      "Guided forest visit & river cruising",
-      "Morning birdwatching & return to Mongla"
-    ]
-  },
-  {
-    "id": "sreemangal",
-    "name": "Sreemangal Tea Garden Escape",
-    "country": "Sreemangal",
-    "region": "Sylhet",
-    "days": 2,
-    "nights": 1,
-    "price": 5500,
-    "rating": 4.7,
-    "image": "assets/sreemangal.jpg",
-    "description": "Slow down among green tea gardens, enjoy local tea, and discover the landscapes around Sreemangal.",
-    "stops": [
-      "Dhaka to Sreemangal & tea garden visit",
-      "Lawachara nature walk & return to Dhaka"
-    ]
-  },
-  {
-    "id": "sylhet",
-    "name": "Sylhet Water & Wilderness",
-    "country": "Sylhet",
-    "region": "Sylhet",
-    "days": 3,
-    "nights": 2,
-    "price": 9500,
-    "rating": 4.8,
-    "image": "https://upload.wikimedia.org/wikipedia/commons/4/48/Ratargul_Swamp_Forest.jpg",
-    "description": "Discover Sylhet through riverside views and the greenery of Ratargul, with time to explore local food and culture.",
-    "stops": [
-      "Arrive in Sylhet & city exploration",
-      "Ratargul guided boat trip, subject to water levels",
-      "Jaflong excursion & return journey"
-    ]
-  },
-  {
-    "id": "kuakata",
-    "name": "Kuakata Coastal Getaway",
-    "country": "Kuakata",
-    "region": "Barishal",
-    "days": 3,
-    "nights": 2,
-    "price": 6500,
-    "rating": 4.8,
-    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Kuakata.jpg",
-    "description": "Enjoy wide coastal views, relaxed beach time, and sunrise and sunset outings on the coast of southern Bangladesh.",
-    "stops": [
-      "Dhaka to Kuakata & sunset beach walk",
-      "Sunrise outing & local coastal exploration",
-      "Free morning & return to Dhaka"
-    ]
-  }
-];
-const money = (n) => "৳" + Number(n).toLocaleString("en-BD");
-const photo = (trip) => trip.image;
-const icon = (name) => `<i class="bi bi-${name}" aria-hidden="true"></i>`;
-const page = document.body.dataset.page || "home";
-const pages = [
-  ["home", "Home", "index.html"],
-  ["packages", "Packages", "packages.html"],
-  ["destinations", "Destinations", "destinations.html"],
-  ["bookings", "Bookings", "bookings.html"],
-  ["about", "About Us", "about.html"],
-  ["contact", "Contact", "contact.html"],
-];
-const brand = `<a class="brand" href="index.html"><img src="assets/plane.svg" alt=""><span>GhuriFiri<small>AROUND THE WORLD</small></span></a>`;
-document.getElementById("header").innerHTML =
-  `<div class="container"><nav class="navbar">${brand}<button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><div class="navlinks">${pages.map(([id, label, url]) => `<a href="${url}" class="${page === id ? "active" : ""}" ${page === id ? 'aria-current="page"' : ""}>${label}</a>`).join("")}<a href="#" class="signin" id="signin">Sign In &nbsp; ${icon("person")}</a></div></nav></div>`;
-document.getElementById("footer").innerHTML =
-  `<div class="container"><div class="footer-grid"><div>${brand}<p>Big dreams. Beautiful places.<br>Thoughtfully planned journeys, made for you.</p><div class="social-links">${icon("instagram")}${icon("facebook")}${icon("pinterest")}</div></div><div><h3>Explore</h3><div class="footer-links"><a href="packages.html">Our packages</a><a href="destinations.html">Destinations</a><a href="index.html#pricing">Travel plans</a><a href="bookings.html">My bookings</a></div></div><div><h3>Get to know us</h3><div class="footer-links"><a href="about.html">Our story</a><a href="contact.html">Contact us</a><a href="contact.html#faq">FAQs & support</a><a href="about.html#promise">Our travel promise</a><a href="photo-credits.html">Photo credits</a></div></div><div><h3>Let's plan your next escape</h3><p>${icon("envelope")} hello@ghurifiri.example<br>${icon("geo-alt")} Dhaka, Bangladesh<br>${icon("clock")} Every day, 9 am – 6 pm</p><a href="contact.html" class="btn btn-outline-light btn-sm">Get in touch</a></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} GhuriFiri. Around the world, with you.</span><span>Demo website · Illustrative packages and prices · No real transactions</span></div></div>`;
-document.body.insertAdjacentHTML(
-  "beforeend",
-  `<div class="modal fade" id="travelModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header"><h2 class="modal-title" id="modalTitle"></h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body" id="modalBody"></div></div></div></div><div class="toast-container position-fixed bottom-0 end-0 p-3"><div id="notice" class="toast" role="status" aria-live="polite"><div class="d-flex"><div class="toast-body"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div></div></div>`,
-);
-const main = document.getElementById("main");
-const card = (t) =>
-  `<article class="trip-card"><div class="trip-photo"><img src="${photo(t)}" alt="${t.country} holiday scenery" loading="lazy"></div><div class="trip-body"><h3>${t.name}</h3><div class="trip-meta"><span>${icon("geo-alt-fill")} ${t.country}</span><span>${icon("airplane")} ${t.days} Days / ${t.nights} Nights</span></div><div class="trip-bottom"><div><span class="price">${money(t.price)}</span><span class="per-person">Per Person</span></div><span class="rating">${icon("star-fill")} ${t.rating}</span><button class="round-button" data-trip="${t.id}" aria-label="View ${t.name}">${icon("arrow-right")}</button></div></div></article>`;
-function subhero(title, description) {
-  return `<section class="subhero"><div class="container"><p class="small mb-3">GhuriFiri / ${page.toUpperCase()}</p><h1>${title}</h1><p>${description}</p></div></section>`;
-}
-const benefits = `<div class="benefits">${[
-  ["send", "Best Price Guarantee", "Get the best deals<br>or we match it."],
-  ["shield-check", "Secure Booking", "Your data is safe<br>with us."],
-  ["headset", "24/7 Customer Support", "We're here to help,<br>anytime."],
-  [
-    "suitcase-lg",
-    "Custom Travel Packages",
-    "Tailored experiences<br>just for you.",
-  ],
-]
-  .map(
-    ([i, h, p]) =>
-      `<div class="benefit"><div class="ice-icon">${icon(i)}</div><div><h3>${h}</h3><p>${p}</p></div></div>`,
-  )
-  .join("")}</div>`;
-const plans = [
-  [
-    "Economy",
-    1500,
-    "Simple, comfortable travel",
-    [
-      "Shared AC Transport",
-      "Standard Accommodation",
-      "Daily Breakfast",
-      "Local Transfers"
-    ]
-  ],
-  [
-    "Premium",
-    3500,
-    "A little extra comfort",
-    [
-      "Premium AC Transport",
-      "Upgraded Accommodation",
-      "Breakfast & Dinner",
-      "Local Transfers",
-      "Guided Sightseeing"
-    ]
-  ],
-  [
-    "Business",
-    6000,
-    "More space and flexibility",
-    [
-      "Private AC Transport",
-      "Premium Accommodation",
-      "All Meals Included",
-      "Flexible Pickup",
-      "Private Local Guide",
-      "Flexible Itinerary"
-    ]
-  ],
-  [
-    "Luxury",
-    10000,
-    "A special Bangladesh escape",
-    [
-      "Private Premium Transport",
-      "Best Available Local Stay",
-      "All Meals Included",
-      "Private Transfers",
-      "Curated Local Experiences",
-      "Dedicated Trip Host"
-    ]
-  ]
-];
-if (page === "home")
-  main.innerHTML = `<section class="hero"><div class="container hero-copy"><h1>GhuriFiri<span>AROUND THE WORLD</span></h1><div class="script">Explore. Dream. Discover.</div><p>Exclusive travel packages to<br>Bangladesh's most beautiful destinations.</p><a class="btn btn-light" href="packages.html">Explore Packages &nbsp; ${icon("send-fill")}</a></div></section><div class="container"><section class="search-wrap" aria-label="Find your trip"><div class="search-tabs" role="tablist">${[
-    ["airplane-fill", "Transport"],
-    ["buildings", "Hotels"],
-    ["car-front-fill", "Cars"],
-    ["ticket-perforated", "Experiences"],
-  ]
-    .map(
-      ([i, t], n) =>
-        `<button role="tab" aria-selected="${n === 0}" class="${n === 0 ? "active" : ""}" data-search-type="${t}">${icon(i)}${t}</button>`,
-    )
-    .join(
-      "",
-    )}</div><form class="search-box" id="searchForm"><div><label for="from" id="fromLabel">From</label><input id="from" value="Dhaka, Bangladesh" required></div><div><label for="to">Destination</label><select id="to">${trips.map((t) => `<option value="${t.country}">${t.country}</option>`).join("")}</select></div><div><label for="depart" id="departLabel">Depart</label><input type="date" id="depart" required></div><div><label for="return" id="returnLabel">Return</label><input type="date" id="return" required></div><div><label for="travelers" id="travelersLabel">Travelers</label><select id="travelers"><option value="1">1 Adult</option><option value="2" selected>2 Adults</option><option value="3">3 Adults</option><option value="4">4 Adults</option><option value="5">5 Adults</option><option value="6">6 Adults</option></select></div><button class="btn btn-primary" type="submit">Search</button></form></section>${benefits}<section class="panel"><div class="section-heading"><h2>Popular Packages</h2><a href="packages.html">View All Packages &nbsp; ${icon("arrow-right-circle")}</a></div><div class="package-grid">${trips.slice(0, 4).map(card).join("")}</div></section><section class="pricing" id="pricing"><div class="pricing-intro"><h2>PRICING DETAILS</h2><span>──</span><img src="assets/plane.svg" alt="Paper airplane"></div>${plans.map(([name, price, desc, features], i) => `<article class="plan ${i === 1 ? "popular" : ""}">${i === 1 ? '<div class="ribbon">Most Popular</div>' : ""}<h3>${name}</h3><p>${desc}</p><span class="price">${money(price)}</span><span class="per-person">Per Person · starting at</span><ul>${features.map((f) => `<li>${f}</li>`).join("")}</ul><button class="btn ${i === 1 ? "btn-primary" : "btn-outline-primary"}" data-plan="${name}">Select Plan</button></article>`).join("")}</section><section class="panel"><h2 class="section-title how-title">How to Book</h2><div class="steps">${[
-    ["geo-alt", "Choose Destination", "Pick your dream destination."],
-    ["box-seam", "Select Package", "Choose the best package for you."],
-    ["credit-card", "Make Payment", "Review your demo reservation."],
-    ["send", "Enjoy Your Trip", "Pack your bags and make memories!"],
-  ]
-    .map(
-      ([i, h, p], n) =>
-        `<div class="step">${icon(i)}<div><h3>${n + 1}. ${h}</h3><p>${p}</p></div></div>`,
-    )
-    .join(
-      "",
-    )}</div></section><section class="social-proof"><div class="stats">${[
-    ["airplane", "6", "Destinations"],
-    ["people", "1K+", "Happy Travelers"],
-    ["box", "6", "Travel Packages"],
-    ["headset", "24/7", "Support"],
-  ]
-    .map(
-      ([i, n, l]) =>
-        `<div>${icon(i)}<strong>${n}</strong><small>${l}</small></div>`,
-    )
-    .join(
-      "",
-    )}</div><blockquote class="quote">Our Sylhet getaway was full of beautiful moments!<br>Everything was perfectly organized.<footer>— Nusrat A. <span class="stars">★★★★★</span><br>Dhaka, Bangladesh · Illustrative testimonial</footer></blockquote><span class="visually-hidden">All statistics are illustrative demo content.</span></section><p class="demo-note text-center">Travel inspiration shown with illustrative statistics, reviews, and demo prices.</p><section class="newsletter"><div><h2>A little wanderlust in your inbox.</h2><p>Fresh destinations, travel tips, and your next great escape.</p></div><form id="newsletterForm"><label class="visually-hidden" for="newsletterEmail">Email address</label><input id="newsletterEmail" type="email" class="form-control" placeholder="Your email address" required><button class="btn btn-primary">Subscribe</button></form></section></div>`;
-if (page === "packages")
-  main.innerHTML =
-    subhero(
-      "Your next adventure starts here.",
-      "Handpicked escapes, unforgettable places, and a package for every kind of traveler.",
-    ) +
-    `<section class="container page-content"><div class="filter-bar"><input id="packageSearch" class="form-control" aria-label="Search packages" placeholder="Search a destination or package…"><select id="regionFilter" class="form-select" aria-label="Filter by division"><option value="">All divisions</option><option>Chattogram</option><option>Sylhet</option><option>Khulna</option><option>Barishal</option></select><select id="sortPackages" class="form-select" aria-label="Sort packages"><option value="popular">Recommended</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div><p id="resultsLabel" class="demo-note"></p><div class="package-grid" id="packageResults"></div><p class="demo-note mt-4">Sample packages include accommodation, local transfers, and listed activities. Prices are illustrative and shown per person in BDT.</p></section>`;
-if (page === "destinations")
-  main.innerHTML =
-    subhero(
-      "Discover beautiful Bangladesh.",
-      "From coastal beaches to green hills and tea gardens, find the place that speaks to you.",
-    ) +
-    `<section class="container page-content"><div class="row g-4">${trips.map((t) => `<div class="col-md-6 col-lg-4"><a class="destination-card" href="packages.html?destination=${encodeURIComponent(t.country)}"><img src="${photo(t)}" alt="${t.country}" loading="lazy"><div><span class="small">${t.region.toUpperCase()}</span><h2>${t.country}</h2><p>${t.days} days of discovery · from ${money(t.price)}</p><span class="btn btn-light btn-sm">Explore destination</span></div></a></div>`).join("")}</div></section>`;
-if (page === "bookings")
-  main.innerHTML =
-    subhero(
-      "Your journeys, all in one place.",
-      "A little planning today. A whole world of memories tomorrow.",
-    ) +
-    `<section class="container page-content"><p class="demo-note mb-4">Demo reservations are saved only in this browser. No payment or real booking is made.</p><div id="bookingList"></div></section>`;
-if (page === "about")
-  main.innerHTML =
-    subhero(
-      "For the love of going places.",
-      "We believe the best journeys start with a little curiosity — and a paper plane.",
-    ) +
-    `<section class="container page-content"><div class="row align-items-center g-5 mb-5"><div class="col-md-6"><img src="${photo(trips[0], 1000)}" alt="Cox's Bazar sea beach in Bangladesh" class="img-fluid rounded-4"></div><div class="col-md-6"><span class="text-primary small fw-bold">OUR STORY</span><h2 class="fw-bold my-3">Big dreams.<br>Beautifully simple journeys.</h2><p>GhuriFiri is a Bangladesh-focused demo travel brand created around one simple idea: discovering Bangladesh should feel as exciting as the destination itself.</p><p>From a coastal escape to a tea garden retreat, our sample itineraries bring the details together so you can spend more time dreaming about where to go next.</p><a href="packages.html" class="btn btn-primary mt-2">Find your next escape</a></div></div><section class="panel" id="promise"><h2 class="section-title mb-3">Our travel promise</h2>${benefits}<p class="demo-note">This is a demonstration website. The brand, service promises, prices, reviews, and statistics are illustrative.</p></section></section>`;
-if (page === "contact")
-  main.innerHTML =
-    subhero(
-      "Let's make your next trip happen.",
-      "Have a destination in mind? A question about a package? We would love to hear from you.",
-    ) +
-    `<section class="container page-content"><div class="row g-5"><div class="col-lg-4 contact-info"><div class="mb-4">${icon("envelope")}<h3 class="mt-3">Drop us a line</h3><p>hello@ghurifiri.example<br>Demo contact address</p></div><div class="mb-4">${icon("geo-alt")}<h3 class="mt-3">Come say hello</h3><p>Dhaka, Bangladesh</p></div><div>${icon("headset")}<h3 class="mt-3">Here for your journey</h3><p>Every day, 9 am – 6 pm<br>Questions, ideas, or a little travel inspiration.</p></div></div><div class="col-lg-8"><form class="panel" id="contactForm"><h2 class="fs-4 fw-bold mb-4">Send a message</h2><div class="row g-3"><div class="col-md-6"><label for="contactName" class="form-label">Your name</label><input class="form-control" id="contactName" required maxlength="100" placeholder="Full name"></div><div class="col-md-6"><label for="contactEmail" class="form-label">Email address</label><input class="form-control" id="contactEmail" type="email" required placeholder="you@example.com"></div><div class="col-12"><label for="subject" class="form-label">I'm interested in</label><select id="subject" class="form-select"><option>Planning a trip</option><option>Package details</option><option>Booking support</option><option>Something else</option></select></div><div class="col-12"><label for="message" class="form-label">Your message</label><textarea id="message" class="form-control" rows="5" required minlength="10" placeholder="Tell us a little about your dream trip…"></textarea></div><div class="col-12"><p class="demo-note">Demo form: shows a confirmation; no message is sent.</p><button class="btn btn-primary">Send message</button></div></div></form></div></div><section id="faq" class="panel mt-4"><h2 class="section-title mb-4">A few helpful answers</h2>${[
-      [
-        "What is included in a package?",
-        "Each sample package includes accommodation, local transfers, and the activities listed in the itinerary. Transport and extras depend on the selected plan.",
-      ],
-      [
-        "Can I change or cancel my reservation?",
-        "Yes. Open Bookings and cancel a demo reservation at any time, then create a new reservation with your preferred details.",
-      ],
-      [
-        "Will I be charged for booking?",
-        "No. This is a demonstration website. No payments are collected and no actual travel services are reserved.",
-      ],
-    ]
-      .map(
-        ([q, a]) =>
-          `<details class="py-3 border-bottom"><summary class="fw-bold">${q}</summary><p class="mt-3 mb-0">${a}</p></details>`,
-      )
-      .join("")}</section></section>`;
+/* ==========================================================================
+   GhuriFiri — single external script (app.js)
+   Page content lives in the HTML files. This script only adds the
+   interactive features required by the project brief:
 
-function notify(message) {
-  document.querySelector("#notice .toast-body").textContent = message;
-  bootstrap.Toast.getOrCreateInstance(document.getElementById("notice"), {
-    delay: 5000,
-  }).show();
+   1. Mobile navigation menu toggle
+   2. Hero destination slider (Home)
+   3. Scroll-to-top button (all pages)
+   4. Destination filter: region + price range (Destinations)
+   5. Form validation helpers (shared by Booking and Contact forms)
+   6. Booking form: validation, past-date check, live cost estimator
+      and the list of submitted booking requests
+   7. Contact form: validation with inline error messages
+   8. FAQ accordion (Contact)
+
+   Each feature first checks that its elements exist on the current page,
+   so the same file can be linked from every page.
+   ========================================================================== */
+
+/* Group discount rule for the booking cost estimator */
+const GROUP_SIZE = 5;          // discount applies from 5 travellers
+const GROUP_DISCOUNT = 0.1;    // 10 %
+
+/* Formats a number as Bangladeshi Taka, e.g. 12500 -> "৳12,500" */
+function formatTaka(amount) {
+  return "৳" + Math.round(amount).toLocaleString("en-US");
 }
-function showModal(title, content) {
-  document.getElementById("modalTitle").textContent = title;
-  document.getElementById("modalBody").innerHTML = content;
-  bootstrap.Modal.getOrCreateInstance(
-    document.getElementById("travelModal"),
-  ).show();
+
+/* ---------- 1. Mobile navigation menu toggle ---------- */
+const menuToggle = document.querySelector(".menu-toggle");
+
+if (menuToggle) {
+  const navLinks = document.getElementById("navlinks");
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+  });
 }
-function readBookings() {
-  try {
-    return JSON.parse(localStorage.getItem("ghurifiriBookingsBD") || "[]");
-  } catch {
-    return [];
+
+/* ---------- 2. Hero destination slider ---------- */
+const slider = document.querySelector(".hero-slider");
+
+if (slider) {
+  const slides = slider.querySelectorAll(".slide");
+  const dots = slider.querySelectorAll(".slider-dots button");
+  let current = 0;
+  let timer;
+
+  // Show the slide at position `index` (wraps around at both ends)
+  function showSlide(index) {
+    slides[current].classList.remove("active");
+    dots[current].classList.remove("active");
+    dots[current].setAttribute("aria-current", "false");
+
+    current = (index + slides.length) % slides.length;
+
+    slides[current].classList.add("active");
+    dots[current].classList.add("active");
+    dots[current].setAttribute("aria-current", "true");
   }
-}
-function saveBookings(bookings) {
-  try {
-    localStorage.setItem("ghurifiriBookingsBD", JSON.stringify(bookings));
-    return true;
-  } catch {
-    notify(
-      "Browser storage is unavailable. Please allow local storage to save a demo booking.",
-    );
-    return false;
+
+  // Move to the next slide every 5 seconds
+  function startAutoPlay() {
+    clearInterval(timer);
+    timer = setInterval(() => showSlide(current + 1), 5000);
   }
-}
-function today(offset = 0) {
-  const d = new Date();
-  d.setDate(d.getDate() + offset);
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-function viewTrip(id) {
-  const t = trips.find((t) => t.id === id);
-  showModal(
-    t.name,
-    `<img class="detail-image" src="${photo(t, 1200)}" alt="${t.country}"><div class="d-flex justify-content-between align-items-center mb-3"><span>${icon("geo-alt")} ${t.country} · ${t.days} days / ${t.nights} nights</span><strong class="price">${money(t.price)}</strong></div><p>${t.description}</p><h3 class="fs-6 fw-bold">Your sample itinerary</h3><ol class="small lh-lg">${t.stops.map((s) => `<li>${s}</li>`).join("")}</ol><p class="demo-note">Includes accommodation, transfers, and listed activities. Demo price per person.</p><button class="btn btn-primary" data-book="${t.id}">Book this escape</button>`,
-  );
-}
-function bookTrip(id, plan = "Package") {
-  const t = trips.find((t) => t.id === id);
-  const selected = plans.find((p) => p[0] === plan);
-  const unit = t.price + (selected ? selected[1] : 0);
-  const search = new URLSearchParams(location.search);
-  const initialDate = search.get("depart") || today(30);
-  const validDate =
-    /^\d{4}-\d{2}-\d{2}$/.test(initialDate) && initialDate >= today()
-      ? initialDate
-      : today(30);
-  showModal(
-    "Plan your " + t.name,
-    `<p>${t.days} days in ${t.country} · ${plan === "Package" ? "Standard package" : plan + " upgrade"} · ${money(unit)} per person</p><form id="bookingForm"><div class="row g-3"><div class="col-sm-6"><label for="guestName">Full name</label><input class="form-control" id="guestName" required maxlength="100"></div><div class="col-sm-6"><label for="guestEmail">Email</label><input type="email" class="form-control" id="guestEmail" required></div><div class="col-sm-6"><label for="bookingDate">Departure date</label><input class="form-control" type="date" id="bookingDate" min="${today()}" value="${validDate}" required></div><div class="col-sm-6"><label for="guestCount">Travelers</label><select class="form-select" id="guestCount">${[1, 2, 3, 4, 5, 6].map((n) => `<option value="${n}">${n} ${n === 1 ? "adult" : "adults"}</option>`).join("")}</select></div><div class="col-12"><div class="panel mb-2 mt-2 d-flex justify-content-between"><span>Total (BDT)</span><strong id="bookingTotal">${money(unit)}</strong></div><p class="demo-note">Demo reservation only. No payment is collected. Details are saved in this browser.</p><button class="btn btn-primary w-100">Confirm demo booking</button></div></div></form>`,
-  );
-  const count = document.getElementById("guestCount");
-  count.value = ["1", "2", "3", "4", "5", "6"].includes(search.get("travelers"))
-    ? search.get("travelers")
-    : "2";
-  const update = () =>
-    (document.getElementById("bookingTotal").textContent = money(
-      unit * Number(count.value),
-    ));
-  count.onchange = update;
-  update();
-  document.getElementById("bookingForm").onsubmit = (e) => {
-    e.preventDefault();
-    if (document.getElementById("bookingDate").value < today())
-      return notify("Choose a future departure date.");
-    const bookings = readBookings();
-    bookings.unshift({
-      id: "GHF-" + Date.now().toString(36).toUpperCase(),
-      trip: id,
-      date: document.getElementById("bookingDate").value,
-      travelers: Number(count.value),
-      total: unit * Number(count.value),
-      plan,
+
+  slider.querySelector(".prev").addEventListener("click", () => {
+    showSlide(current - 1);
+    startAutoPlay();
+  });
+
+  slider.querySelector(".next").addEventListener("click", () => {
+    showSlide(current + 1);
+    startAutoPlay();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showSlide(index);
+      startAutoPlay();
     });
-    if (saveBookings(bookings)) {
-      bootstrap.Modal.getInstance(
-        document.getElementById("travelModal"),
-      ).hide();
-      notify(
-        "Demo booking confirmed! Find your reservation on the Bookings page.",
-      );
-      if (page === "bookings") renderBookings();
-    }
-  };
+  });
+
+  // Pause while the visitor hovers over or focuses the slider
+  slider.addEventListener("mouseenter", () => clearInterval(timer));
+  slider.addEventListener("mouseleave", startAutoPlay);
+  slider.addEventListener("focusin", () => clearInterval(timer));
+  slider.addEventListener("focusout", startAutoPlay);
+
+  startAutoPlay();
 }
-function renderBookings() {
-  const bookings = readBookings();
-  document.getElementById("bookingList").innerHTML = bookings.length
-    ? bookings
-        .map((b) => {
-          const t = trips.find((t) => t.id === b.trip);
-          if (!t) return "";
-          return `<article class="panel booking-row"><div><span class="badge-demo">Confirmed demo</span><h3 class="mt-3">${t.name}</h3><p class="mb-1">${b.date} · ${b.travelers} traveler${b.travelers > 1 ? "s" : ""} · ${b.plan}</p><small class="text-secondary">${b.id}</small></div><strong class="price">${money(b.total)}</strong><button class="btn btn-outline-primary" data-cancel="${b.id}">Cancel reservation</button></article>`;
-        })
-        .join("")
-    : `<div class="empty">${icon("suitcase-lg")}<h2>Your next chapter is waiting.</h2><p>Find a place you love and make your first demo booking.</p><a href="packages.html" class="btn btn-primary mt-2">Explore packages</a></div>`;
+
+/* ---------- 3. Scroll-to-top button ---------- */
+const scrollTopButton = document.getElementById("scrollTop");
+
+if (scrollTopButton) {
+  // Appears after the visitor scrolls 300px down the page
+  window.addEventListener("scroll", () => {
+    scrollTopButton.classList.toggle("show", window.scrollY > 300);
+  });
+
+  scrollTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
-function filterPackages() {
-  const query = document
-    .getElementById("packageSearch")
-    .value.toLowerCase()
-    .trim();
-  const region = document.getElementById("regionFilter").value;
-  let matches = trips.filter(
-    (t) =>
-      (t.name + " " + t.country).toLowerCase().includes(query) &&
-      (!region || t.region === region),
-  );
-  const sort = document.getElementById("sortPackages").value;
-  if (sort !== "popular")
-    matches.sort((a, b) =>
-      sort === "low" ? a.price - b.price : b.price - a.price,
-    );
-  document.getElementById("resultsLabel").textContent =
-    `${matches.length} demo package${matches.length === 1 ? "" : "s"} found`;
-  document.getElementById("packageResults").innerHTML = matches.length
-    ? matches.map(card).join("")
-    : '<div class="empty" style="grid-column:1/-1"><h2>No destinations found.</h2><p>Try another destination or choose all regions.</p></div>';
-}
-document.querySelector(".menu-toggle").onclick = (e) => {
-  const open = document.querySelector(".navlinks").classList.toggle("open");
-  e.currentTarget.setAttribute("aria-expanded", open);
-};
-document.addEventListener("click", (e) => {
-  const trip = e.target.closest("[data-trip]"),
-    book = e.target.closest("[data-book]"),
-    plan = e.target.closest("[data-plan]"),
-    cancel = e.target.closest("[data-cancel]");
-  if (trip) viewTrip(trip.dataset.trip);
-  if (book) bookTrip(book.dataset.book, book.dataset.upgrade || "Package");
-  if (plan) {
-    const name = plan.dataset.plan;
-    showModal(
-      name + " travel plan",
-      `<p>Choose your destination to add the ${name} plan. The plan price is an upgrade added to the package price.</p><div class="row g-3">${trips.map((t) => `<div class="col-sm-6"><button class="btn btn-outline-primary w-100" data-book="${t.id}" data-upgrade="${name}">${t.name}<br><small>From ${money(t.price + plans.find((p) => p[0] === name)[1])} per person</small></button></div>`).join("")}</div>`,
-    );
+
+/* ---------- 4. Destination filter: region + price range ---------- */
+const filterForm = document.getElementById("destinationFilter");
+
+if (filterForm) {
+  const regionFilter = document.getElementById("regionFilter");
+  const priceFilter = document.getElementById("priceFilter");
+  const priceValue = document.getElementById("priceValue");
+  const resultCount = document.getElementById("resultCount");
+  const noResults = document.getElementById("noResults");
+  const cards = document.querySelectorAll(".destination-item");
+
+  // Show only the cards that match the chosen region AND are within the price limit
+  function filterDestinations() {
+    const region = regionFilter.value;
+    const maxPrice = Number(priceFilter.value);
+    let visible = 0;
+
+    priceValue.textContent = formatTaka(maxPrice);
+
+    cards.forEach((card) => {
+      const matchesRegion = region === "all" || card.dataset.region === region;
+      const matchesPrice = Number(card.dataset.price) <= maxPrice;
+      const show = matchesRegion && matchesPrice;
+
+      card.hidden = !show;
+      if (show) visible++;
+    });
+
+    resultCount.textContent = `Showing ${visible} of ${cards.length} destinations`;
+    noResults.hidden = visible > 0;
   }
-  if (cancel) {
-    showModal(
-      "Cancel demo reservation?",
-      `<p>This removes the reservation from this browser. You can always book another escape.</p><button class="btn btn-primary" id="confirmCancel">Yes, cancel reservation</button> <button class="btn btn-outline-primary" data-bs-dismiss="modal">Keep reservation</button>`,
-    );
-    document.getElementById("confirmCancel").onclick = () => {
-      if (
-        saveBookings(
-          readBookings().filter((b) => b.id !== cancel.dataset.cancel),
-        )
-      ) {
-        bootstrap.Modal.getInstance(
-          document.getElementById("travelModal"),
-        ).hide();
-        renderBookings();
-        notify("Demo reservation canceled.");
+
+  regionFilter.addEventListener("change", filterDestinations);
+  priceFilter.addEventListener("input", filterDestinations);
+
+  // "Reset filters" button inside the no-results message
+  filterForm.addEventListener("reset", () => setTimeout(filterDestinations));
+
+  filterDestinations();
+}
+
+/* ---------- 5. Form validation helpers ---------- */
+
+/* Shows (or clears, when message is "") the inline error for one field.
+   The error element's id is always the field id + "Error". */
+function setError(id, message) {
+  const field = document.getElementById(id);
+  const error = document.getElementById(id + "Error");
+
+  error.textContent = message;
+  field.classList.toggle("is-invalid", message !== "");
+  field.setAttribute("aria-invalid", message !== "");
+}
+
+/* Runs every rule; returns true when the whole form is valid.
+   `rules` maps a field id to a function that returns an error message or "". */
+function validateAll(rules) {
+  let firstInvalid = null;
+
+  for (const id in rules) {
+    const message = rules[id]();
+    setError(id, message);
+    if (message && !firstInvalid) firstInvalid = id;
+  }
+
+  // Move keyboard focus to the first problem so it is easy to fix
+  if (firstInvalid) {
+    const field = document.getElementById(firstInvalid);
+    (field.querySelector("input") || field).focus();
+  }
+
+  return firstInvalid === null;
+}
+
+/* Re-checks a field while the visitor corrects it (only once it shows an error) */
+function liveRevalidate(form, rules) {
+  ["input", "change"].forEach((type) => {
+    form.addEventListener(type, (event) => {
+      const id = event.target.type === "radio" ? event.target.name : event.target.id;
+      if (rules[id] && document.getElementById(id + "Error").textContent) {
+        setError(id, rules[id]());
       }
+    });
+  });
+}
+
+/* Clears every error message, e.g. after the form is reset */
+function clearErrors(rules) {
+  for (const id in rules) setError(id, "");
+}
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const namePattern = /^[A-Za-z][A-Za-z .'-]{2,}$/;
+
+/* ---------- 6. Booking form: validation and live cost estimator ---------- */
+const bookingForm = document.getElementById("bookingForm");
+
+if (bookingForm) {
+  const destination = document.getElementById("destination");
+  const travelers = document.getElementById("travelers");
+  const success = document.getElementById("bookingSuccess");
+
+  // Returns true if the yyyy-mm-dd date is before today
+  function isPastDate(value) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return new Date(value + "T00:00:00") < today;
+  }
+
+  // One rule per field: return an error message, or "" when valid
+  const bookingRules = {
+    fullName() {
+      const value = document.getElementById("fullName").value.trim();
+      if (!value) return "Please enter your full name.";
+      if (!namePattern.test(value)) return "Name should be at least 3 letters (letters and spaces only).";
+      return "";
+    },
+    email() {
+      const value = document.getElementById("email").value.trim();
+      if (!value) return "Please enter your email address.";
+      if (!emailPattern.test(value)) return "That email doesn't look right — try name@example.com.";
+      return "";
+    },
+    phone() {
+      const value = document.getElementById("phone").value.replace(/[\s-]/g, "");
+      if (!value) return "Please enter a phone number so we can call you.";
+      if (!/^(\+?880)?01[3-9]\d{8}$/.test(value)) return "Enter a Bangladeshi mobile number, e.g. 01712-345678.";
+      return "";
+    },
+    travelDate() {
+      const value = document.getElementById("travelDate").value;
+      if (!value) return "Please choose your travel date.";
+      if (isPastDate(value)) return "This date is in the past. Please choose today or a future date.";
+      return "";
+    },
+    travelers() {
+      const value = Number(travelers.value);
+      if (!travelers.value) return "Please enter the number of travelers.";
+      if (!Number.isInteger(value) || value < 1 || value > 20) return "Number of travelers must be a whole number from 1 to 20.";
+      return "";
+    },
+    destination() {
+      return destination.value ? "" : "Please choose a destination.";
+    },
+    tourType() {
+      return bookingForm.querySelector('input[name="tourType"]:checked') ? "" : "Please choose a tour type.";
+    },
+  };
+
+  // Live estimate: travelers × package price, minus 10 % for groups of 5+
+  function updateEstimate() {
+    const selected = destination.options[destination.selectedIndex];
+    const price = Number(selected.dataset.price || 0);
+    const count = Number(travelers.value);
+    const people = Number.isInteger(count) && count > 0 ? count : 0;
+
+    const total = price * people;
+    const discount = people >= GROUP_SIZE ? total * GROUP_DISCOUNT : 0;
+    const finalAmount = total - discount;
+
+    document.getElementById("estPrice").textContent = formatTaka(price);
+    document.getElementById("estTravelers").textContent = people;
+    document.getElementById("estTotal").textContent = formatTaka(total);
+    document.getElementById("estDiscount").textContent = "− " + formatTaka(discount);
+    document.getElementById("estFinal").textContent = formatTaka(finalAmount);
+
+    return finalAmount;
+  }
+
+  destination.addEventListener("change", updateEstimate);
+  travelers.addEventListener("input", updateEstimate);
+  liveRevalidate(bookingForm, bookingRules);
+
+  /* --- Submitted booking requests list --- */
+  const STORAGE_KEY = "ghurifiriBookings";
+  const bookingList = document.getElementById("bookingList");
+  const noBookings = document.getElementById("noBookings");
+  const bookingCount = document.getElementById("bookingCount");
+  const clearButton = document.getElementById("clearBookings");
+
+  // Read saved requests from this browser (empty list if storage is blocked)
+  function loadBookings() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveBookings(bookings) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings));
+    } catch {
+      // storage unavailable: the list still shows until the page is reloaded
+    }
+  }
+
+  let bookings = loadBookings();
+
+  // Text of the <label> that belongs to a radio button or checkbox
+  function labelText(input) {
+    return document.querySelector(`label[for="${input.id}"]`).textContent;
+  }
+
+  // Collects the submitted form values into one plain object
+  function readBookingForm() {
+    const option = destination.options[destination.selectedIndex];
+    const count = Number(travelers.value);
+    const total = Number(option.dataset.price) * count;
+    const discount = count >= GROUP_SIZE ? total * GROUP_DISCOUNT : 0;
+    const addons = [...bookingForm.querySelectorAll('input[name="addons"]:checked')].map(labelText);
+
+    return {
+      name: document.getElementById("fullName").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      date: document.getElementById("travelDate").value,
+      travelers: count,
+      destination: option.text.replace(/\s*\(.*\)$/, ""), // drop the "(৳…)" price
+      tourType: labelText(bookingForm.querySelector('input[name="tourType"]:checked')),
+      addons: addons.length ? addons.join(", ") : "None",
+      notes: document.getElementById("notes").value.trim() || "—",
+      finalAmount: total - discount,
     };
   }
-});
-document.getElementById("signin").onclick = (e) => {
-  e.preventDefault();
-  showModal(
-    "Welcome to GhuriFiri",
-    `<p>Try the demo traveler profile. No account is created or password required.</p><form id="signinForm"><label for="profileName">Your first name</label><input class="form-control mb-3" id="profileName" required maxlength="30" placeholder="How should we greet you?"><button class="btn btn-primary">Continue in demo mode</button></form>`,
-  );
-  document.getElementById("signinForm").onsubmit = (e) => {
-    e.preventDefault();
-    const name = document.getElementById("profileName").value.trim();
-    if (!name) return;
-    document.getElementById("signin").textContent = "Hi, " + name;
-    bootstrap.Modal.getInstance(document.getElementById("travelModal")).hide();
-    notify("Welcome, " + name + "! Your demo profile is ready for this visit.");
-  };
-};
-if (page === "home") {
-  document.getElementById("depart").value = today(30);
-  document.getElementById("return").value = today(37);
-  document.getElementById("depart").min = today();
-  document.getElementById("return").min = today(30);
-  document.getElementById("depart").onchange = (e) => {
-    document.getElementById("return").min = e.target.value;
-    if (document.getElementById("return").value < e.target.value)
-      document.getElementById("return").value = e.target.value;
-  };
-  let searchType = "Transport";
-  document.querySelectorAll("[data-search-type]").forEach(
-    (button) =>
-      (button.onclick = () => {
-        searchType = button.dataset.searchType;
-        document.querySelectorAll("[data-search-type]").forEach((b) => {
-          b.classList.toggle("active", b === button);
-          b.setAttribute("aria-selected", b === button);
-        });
-        document.getElementById("fromLabel").textContent =
-          searchType === "Hotels"
-            ? "Hotel preference"
-            : searchType === "Cars"
-              ? "Pickup location"
-              : searchType === "Experiences"
-                ? "Experience style"
-                : "From";
-        document.getElementById("from").value = {
-          Transport: "Dhaka, Bangladesh",
-          Hotels: "Beach resort",
-          Cars: "Dhaka pickup point",
-          Experiences: "Culture & adventure",
-        }[searchType];
-        document.getElementById("departLabel").textContent =
-          searchType === "Hotels" ? "Check-in" : "Depart";
-        document.getElementById("returnLabel").textContent =
-          searchType === "Hotels" ? "Check-out" : "Return";
-      }),
-  );
-  document.getElementById("searchForm").onsubmit = (e) => {
-    e.preventDefault();
-    if (
-      document.getElementById("return").value <
-      document.getElementById("depart").value
-    )
-      return notify("Return date must be on or after departure.");
-    const params = new URLSearchParams({
-      destination: document.getElementById("to").value,
-      type: searchType,
-      from: document.getElementById("from").value,
-      depart: document.getElementById("depart").value,
-      return: document.getElementById("return").value,
-      travelers: document.getElementById("travelers").value,
+
+  // Builds one list item. textContent is used so typed text can never inject HTML.
+  function bookingItem(booking) {
+    const item = document.createElement("li");
+    item.className = "col-md-6";
+
+    const card = document.createElement("article");
+    card.className = "booking-item";
+
+    const header = document.createElement("header");
+    const title = document.createElement("h3");
+    title.textContent = booking.destination;
+    const amount = document.createElement("span");
+    amount.className = "price";
+    amount.textContent = formatTaka(booking.finalAmount);
+    header.append(title, amount);
+
+    const details = document.createElement("dl");
+    const rows = [
+      ["Name", booking.name],
+      ["Email", booking.email],
+      ["Phone", booking.phone],
+      ["Travel date", booking.date],
+      ["Travelers", booking.travelers],
+      ["Tour type", booking.tourType],
+      ["Add-ons", booking.addons],
+      ["Notes", booking.notes],
+    ];
+    rows.forEach(([label, value]) => {
+      const row = document.createElement("div");
+      const dt = document.createElement("dt");
+      const dd = document.createElement("dd");
+      dt.textContent = label;
+      dd.textContent = value;
+      row.append(dt, dd);
+      details.append(row);
     });
-    location.href = "packages.html?" + params;
-  };
-  document.getElementById("newsletterForm").onsubmit = (e) => {
-    e.preventDefault();
-    notify(
-      "Thanks! Your demo subscription is confirmed. No email will be sent.",
-    );
-    e.target.reset();
-  };
-}
-if (page === "packages") {
-  const params = new URLSearchParams(location.search);
-  document.getElementById("packageSearch").value =
-    params.get("destination") || "";
-  ["packageSearch", "regionFilter", "sortPackages"].forEach((id) =>
-    document.getElementById(id).addEventListener("input", filterPackages),
-  );
-  filterPackages();
-  if (params.has("type")) {
-    const info = document.createElement("p");
-    info.className = "panel small";
-    info.textContent = `${params.get("type")} inspiration for ${params.get("destination")}. Showing related demo travel packages; standalone transport, hotels, cars, and activities are not sold in this demo.`;
-    document.querySelector(".filter-bar").before(info);
+
+    card.append(header, details);
+    item.append(card);
+    return item;
   }
+
+  // Redraws the whole list (newest request first)
+  function renderBookings() {
+    bookingList.replaceChildren(...bookings.map(bookingItem));
+    bookingCount.textContent = `(${bookings.length})`;
+    noBookings.hidden = bookings.length > 0;
+    clearButton.hidden = bookings.length === 0;
+  }
+
+  clearButton.addEventListener("click", () => {
+    if (!confirm("Remove all booking requests from this list?")) return;
+    bookings = [];
+    saveBookings(bookings);
+    renderBookings();
+  });
+
+  bookingForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // prototype: nothing is sent to a server
+    success.hidden = true;
+
+    if (!validateAll(bookingRules)) return;
+
+    const booking = readBookingForm();
+    bookings.unshift(booking);
+    saveBookings(bookings);
+    renderBookings();
+
+    success.textContent = `Thank you, ${booking.name}! Your booking request for ${booking.destination} (estimated ${formatTaka(booking.finalAmount)}) has been received and added to the list below. Our team will contact you within 24 hours to confirm.`;
+    success.hidden = false;
+
+    bookingForm.reset();
+  });
+
+  renderBookings();
+
+  // Reset button: clear errors and recalculate after the browser resets the values
+  bookingForm.addEventListener("reset", () => {
+    clearErrors(bookingRules);
+    setTimeout(updateEstimate);
+  });
+
+  updateEstimate();
 }
-if (page === "bookings") renderBookings();
-if (page === "contact")
-  document.getElementById("contactForm").onsubmit = (e) => {
-    e.preventDefault();
-    notify(
-      "Thanks! Your demo message was validated successfully. No message was sent.",
-    );
-    e.target.reset();
+
+/* ---------- 7. Contact form: validation with inline error messages ---------- */
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  const success = document.getElementById("contactSuccess");
+
+  const contactRules = {
+    contactName() {
+      const value = document.getElementById("contactName").value.trim();
+      if (!value) return "Please tell us your name.";
+      if (!namePattern.test(value)) return "Name should be at least 3 letters (letters and spaces only).";
+      return "";
+    },
+    contactEmail() {
+      const value = document.getElementById("contactEmail").value.trim();
+      if (!value) return "Please enter your email so we can reply.";
+      if (!emailPattern.test(value)) return "That email doesn't look right — try name@example.com.";
+      return "";
+    },
+    subject() {
+      const value = document.getElementById("subject").value.trim();
+      if (!value) return "Please add a subject for your message.";
+      if (value.length < 3) return "Subject should be at least 3 characters.";
+      return "";
+    },
+    message() {
+      const value = document.getElementById("message").value.trim();
+      if (!value) return "Please write your message.";
+      if (value.length < 10) return `Your message is a little short — please write at least 10 characters (${value.length}/10).`;
+      return "";
+    },
   };
+
+  liveRevalidate(contactForm, contactRules);
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // prototype: nothing is sent to a server
+    success.hidden = true;
+
+    if (!validateAll(contactRules)) return;
+
+    const name = document.getElementById("contactName").value.trim();
+    success.textContent = `Thanks, ${name}! Your message has been received. We usually reply within one working day.`;
+    success.hidden = false;
+    contactForm.reset();
+  });
+}
+
+/* ---------- 8. FAQ accordion ---------- */
+const faqButtons = document.querySelectorAll(".accordion-button");
+
+faqButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const wasOpen = button.getAttribute("aria-expanded") === "true";
+
+    // Close every answer first, so only one is open at a time
+    faqButtons.forEach((other) => {
+      other.setAttribute("aria-expanded", "false");
+      other.classList.add("collapsed");
+      document.getElementById(other.getAttribute("aria-controls")).classList.remove("show");
+    });
+
+    // Then open the clicked one (unless it was already open, which closes it)
+    if (!wasOpen) {
+      button.setAttribute("aria-expanded", "true");
+      button.classList.remove("collapsed");
+      document.getElementById(button.getAttribute("aria-controls")).classList.add("show");
+    }
+  });
+});
