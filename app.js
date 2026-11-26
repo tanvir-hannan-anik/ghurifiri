@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GhuriFiri — single external script (app.js)
+   Sundarban Trails — single external script (app.js)
    Page content lives in the HTML files. This script only adds the
    interactive features required by the project brief:
 
@@ -281,7 +281,7 @@ if (bookingForm) {
   liveRevalidate(bookingForm, bookingRules);
 
   /* --- Submitted booking requests list --- */
-  const STORAGE_KEY = "ghurifiriBookings";
+  const STORAGE_KEY = "sundarbanTrailsBookings";
   const bookingList = document.getElementById("bookingList");
   const noBookings = document.getElementById("noBookings");
   const bookingCount = document.getElementById("bookingCount");

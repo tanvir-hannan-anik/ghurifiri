@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GhuriFiri — single external stylesheet (style.css)
+   Sundarban Trails — single external stylesheet (style.css)
    Plain CSS only (no framework): base styles, layout grid, components
    and the site's visual design all live in this one file.
 
@@ -1936,8 +1936,8 @@ textarea.form-control.is-invalid {
   }
 
   .hero h1 {
-    font-size: 54px;
-    letter-spacing: -2px;
+    font-size: 42px; /* keeps "Sundarban Trails" on one line */
+    letter-spacing: -1.5px;
   }
 
   .hero h1 span {
